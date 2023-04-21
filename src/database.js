@@ -1,10 +1,15 @@
-const mysql = require('mysql');
+const Sequelize = require('sequelize');
 
-const connection =mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'root@123mysql@#work**',
-    databaseName:'dipadb'
-})
+const sequelize = new Sequelize('dipadb', 'root', 'root@123mysql@#work**', {
+    host: 'localhost',
+    dialect: 'mysql'
+  });
 
-module.exports = {connection};
+  try{
+    sequelize.authenticate();
+    console.log('Connected to the database');
+  }catch(error){
+    console.error('Unable to connect to the database',error);
+  }
+
+  module.exports = {sequelize};
